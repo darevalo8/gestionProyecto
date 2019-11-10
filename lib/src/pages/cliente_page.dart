@@ -13,7 +13,9 @@ class ClientePage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'add-cliente', arguments: data);
+          },
         ),
         body: _getClients(data));
   }

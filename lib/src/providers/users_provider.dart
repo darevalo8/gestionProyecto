@@ -30,4 +30,13 @@ class UserProvider {
     print(response.statusCode);
     return clientes.items;
   }
+
+  Future addClient(Map<String, dynamic> userInfo, Map<String, dynamic> clientData)async{
+    final url = Uri.http(_url, '/api/clientes');
+    String token = userInfo['token'];
+    final response = await http.post(url, body: clientData,headers: {
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    });
+    print(response.statusCode);
+  }
 }

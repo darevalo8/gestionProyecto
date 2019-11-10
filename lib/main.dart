@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:integrador/src/pages/cliente_form_page.dart';
 import 'package:integrador/src/pages/cliente_page.dart';
 import 'package:integrador/src/pages/home_page.dart';
 import 'package:integrador/src/pages/login_page.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         '/': (BuildContext context) => LoginPage(),
         'home': (BuildContext context) => HomePage(),
         'cliente': (BuildContext context) => ClientePage(),
+        'add-cliente': (BuildContext context) => ClienteFormPage(),
       },
     );
   }
