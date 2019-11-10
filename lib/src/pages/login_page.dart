@@ -88,16 +88,23 @@ class _LoginPageState extends State<LoginPage> {
   Widget _bottom() {
     return InkWell(
       onTap: () {
+
+      if(this.username.isNotEmpty && this.password.isNotEmpty){
+        print("username: "+this.username+ " password: "+this.password);
         userProvider.login(this.username, this.password).then((data) {
-          if (data['access'].toString().isNotEmpty) {
-            Navigator.pushNamed(context, 'home', arguments: {
+          if (data['access'] != null) {
+
+             Navigator.pushNamed(context, 'home', arguments: {
               'token': data['access'],
               'refresh': data['refresh']
             });
-          } else {
-            print('no hay datos');
-          }
-        });
+            } if(data['access'] == null) {
+             mostrarAlerta(context, data['detail']);
+            }
+          });
+        }else{
+          mostrarAlerta(context, "Debes llenar todos los campos");
+        }
       },
       child: Container(
         height: 56.0,
@@ -115,4 +122,24 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+void mostrarAlerta(BuildContext context, String mensaje){
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('informacion incorrecta'),
+        content: Text(mensaje),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: ()=> Navigator.of(context).pop(),
+          )
+        ],
+      );
+    }
+  );
+
 }
