@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:integrador/src/providers/users_provider.dart';
 
-class ClienteFormPage extends StatefulWidget {
-  @override
-  _ClienteFormPageState createState() => _ClienteFormPageState();
+class InversionistaFormPage extends StatefulWidget {
+  
+
+  _InversionistaFormPageState createState() => _InversionistaFormPageState();
 }
 
-class _ClienteFormPageState extends State<ClienteFormPage> {
+class _InversionistaFormPageState extends State<InversionistaFormPage> {
+
   String empresa, nit, telefono, direccion, username, password, email;
   var userProvider = UserProvider();
   var data;
+
   @override
   Widget build(BuildContext context) {
+
     data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Cliente'),
+        title: Text('Añadir Inversionista'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -44,6 +48,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
         ),
       ),
     );
+
   }
 
   Widget _textField(String field) {
@@ -121,7 +126,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
         }
         else {
 
-          userProvider.addClient(data, clientData);
+          userProvider.addInversionista(data, clientData);
         }
       },
       child: Container(
@@ -160,4 +165,5 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
   );
 
 }
+
 }
