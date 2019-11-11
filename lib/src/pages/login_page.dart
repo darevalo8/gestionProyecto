@@ -90,7 +90,6 @@ class _LoginPageState extends State<LoginPage> {
       onTap: () {
 
       if(this.username.isNotEmpty && this.password.isNotEmpty){
-        print("username: "+this.username+ " password: "+this.password);
         userProvider.login(this.username, this.password).then((data) {
           if (data['access'] != null) {
 

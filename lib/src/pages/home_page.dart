@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget{
       drawer: _drawer(context),
     );
   }
+  
   Widget _drawer(BuildContext context){
     var data =  ModalRoute.of(context).settings.arguments;
     return Drawer(
