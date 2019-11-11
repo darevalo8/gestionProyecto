@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget{
             title: Text('Gestion de Inversionistas'),
             onTap: (){
               print('object2');
-              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, 'inversionista', arguments: data);
             },
           ),
         ],
