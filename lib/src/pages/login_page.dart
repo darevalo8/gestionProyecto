@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:integrador/src/Widgets/alertas.dart';
 import 'package:integrador/src/providers/users_provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -7,6 +8,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Alerta alerta = new Alerta();
   String username, password;
   var userProvider = UserProvider();
   @override
@@ -86,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _bottom() {
+
     return InkWell(
       onTap: () {
 
@@ -99,11 +102,11 @@ class _LoginPageState extends State<LoginPage> {
               'refresh': data['refresh']
             });
             } if(data['access'] == null) {
-             mostrarAlerta(context, data['detail']);
+             alerta.mostrarAlerta(context, data['detail']);
             }
           });
         }else{
-          mostrarAlerta(context, "Debes llenar todos los campos");
+          alerta.mostrarAlerta(context, "Debes llenar todos los campos");
         }
       },
       child: Container(
@@ -124,22 +127,3 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-void mostrarAlerta(BuildContext context, String mensaje){
-
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('informacion incorrecta'),
-        content: Text(mensaje),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: ()=> Navigator.of(context).pop(),
-          )
-        ],
-      );
-    }
-  );
-
-}

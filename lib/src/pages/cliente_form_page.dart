@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:integrador/src/Widgets/alertas.dart';
 import 'package:integrador/src/providers/users_provider.dart';
 
 class ClienteFormPage extends StatefulWidget {
@@ -7,6 +8,8 @@ class ClienteFormPage extends StatefulWidget {
 }
 
 class _ClienteFormPageState extends State<ClienteFormPage> {
+  
+  Alerta alerta = new Alerta();
   String empresa, nit, telefono, direccion, username, password, email;
   var userProvider = UserProvider();
   var data;
@@ -116,7 +119,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
 
         if(this.empresa.isEmpty || this.nit.isEmpty || this.telefono.isEmpty || this.direccion.isEmpty || this.username.isEmpty || this.password.isEmpty || this.email.isEmpty ){
 
-          mostrarAlerta(context, "Debes llenar todos los campos");
+          alerta.mostrarAlerta(context, "Debes llenar todos los campos");
           
         }
         else {
@@ -141,23 +144,4 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
     );
   }
 
-  void mostrarAlerta(BuildContext context, String mensaje){
-
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('informacion incorrecta'),
-        content: Text(mensaje),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: ()=> Navigator.of(context).pop(),
-          )
-        ],
-      );
-    }
-  );
-
-}
 }

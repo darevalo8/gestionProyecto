@@ -25,14 +25,34 @@ class ClientePage extends StatelessWidget {
       future: userProvider.getClientes(data),
       // initialData: [],
       builder: (context, AsyncSnapshot<List<Cliente>> snapshot) {
-        if (snapshot.hasData) {
-          return ListView(
-            children: this._listClients(snapshot.data, context),
-          );
-        } else {
-          return Container(
-              height: 400.0, child: Center(child: CircularProgressIndicator()));
+        
+        if(!snapshot.hasData){
+          return Center(child: CircularProgressIndicator() );
         }
+
+        final clientes = snapshot.data;
+
+        if (clientes.length == 0){
+          return Center(
+            child: Text('No hay clientes'),
+          );
+        }
+
+        return ListView.builder(
+          itemCount: clientes.length,
+          itemBuilder: (context, i) => Dismissible(
+            key: UniqueKey(),
+            background: Container(color: Colors.red,),
+            child: ListTile(
+              subtitle: Text(clientes[i].telCliente),
+              leading: Icon(Icons.person, color: Theme.of(context).primaryColor,),
+              title: Text(clientes[i].nombreCliente),
+              trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey,),
+            ),
+          )
+          
+          
+        );
       },
     );
   }
