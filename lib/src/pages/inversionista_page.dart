@@ -21,19 +21,42 @@ class InversionistaPage extends StatelessWidget {
         body: _getInver(data));
   }
 
-  Widget _getInver(var data) {
+  Widget _getInver(Map<String, dynamic> data) {
     return FutureBuilder(
       future: userProvider.getInversionistas(data),
       // initialData: [],
       builder: (context, AsyncSnapshot<List<Inversionista>> snapshot) {
-        if (snapshot.hasData) {
-          return ListView(
-            children: this._listInversionistas(snapshot.data, context),
-          );
-        } else {
-          return Container(
-              height: 400.0, child: Center(child: CircularProgressIndicator()));
+
+
+        if(!snapshot.hasData){
+          return Center(child: CircularProgressIndicator() );
         }
+
+        final inversionistas = snapshot.data;
+
+        if (inversionistas.length == 0){
+          return Center(
+            child: Text('No hay inversionistas'),
+          );
+        }
+
+        return ListView.builder(
+          itemCount: inversionistas.length,
+          itemBuilder: (context, i) => Dismissible(
+            key: UniqueKey(),
+            background: Container(color: Colors.red,),
+            child: ListTile(
+              dense: false,
+              leading: Icon(Icons.person, color: Theme.of(context).primaryColor,),
+              title: Text(inversionistas[i].nombreInversionista),
+              trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey,),
+            ),
+          )
+          
+          
+        );
+
+        
       },
     );
   }

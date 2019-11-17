@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:integrador/src/helper/helpers.dart';
 import 'package:integrador/src/models/cliente_model.dart';
 import 'package:integrador/src/models/inversionista_model.dart';
+import 'package:flutter/material.dart';
 
 class UserProvider {
   
@@ -11,8 +13,7 @@ class UserProvider {
 
   Future login(String username, String password) async {
     final url = Uri.http(_url, '/api/login');
-    final response = await http
-        .post(url, body: {'username': username, 'password': password});
+    final response = await http.post(url, body: {'username': username, 'password': password});
     final decodeData = json.decode(response.body);
     print(response.statusCode);
     // print(decodeData);
@@ -21,16 +22,23 @@ class UserProvider {
   }
 
   Future<List<Cliente>> getClientes(Map<String, dynamic> data) async {
+    // bool logueado = verificarToken(data); 
+    //if (log){} retornar el 401 del no log 
+    final Helper helper = new Helper();
     final url = Uri.http(_url, '/api/clientes');
     String token = data['token'];
     final response = await http.get(url, headers: {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
+      
+      
     });
-    final decodeData = jsonDecode(response.body);
-    final clientes = Clientes.fromJsonList(decodeData);
+    final decodeData =  jsonDecode(response.body);
+    final clientes =  Clientes.fromJsonList(decodeData);
+    //helper.verificarToken(token);
     print(response.statusCode);
     return clientes.items;
+    
   }
 
   Future addClient(Map<String, dynamic> userInfo, Map<String, dynamic> clientData)async{
@@ -41,12 +49,9 @@ class UserProvider {
     });
     print(response.statusCode);
 
-
-
-
   }
   Future<List<Inversionista>> getInversionistas(Map<String, dynamic> data) async {
-    final url = Uri.http(_url, '/api/clientes');
+    final url = Uri.http(_url, '/api/inversionistas');
     String token = data['token'];
     final response = await http.get(url, headers: {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -59,7 +64,7 @@ class UserProvider {
   }
 
   Future addInversionista(Map<String, dynamic> userInfo, Map<String, dynamic> clientData)async{
-    final url = Uri.http(_url, '/api/clientes');
+    final url = Uri.http(_url, '/api/inversionistas');
     String token = userInfo['token'];
     final response = await http.post(url, body: clientData,headers: {
       HttpHeaders.authorizationHeader: 'Bearer $token',

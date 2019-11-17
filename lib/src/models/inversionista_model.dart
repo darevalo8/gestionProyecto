@@ -15,6 +15,7 @@ class Inversionista {
   String nitInversionista;
   String telInversionista;
   String direcInversionista;
+  
 
   Inversionista({
     this.nombreInversionista,
