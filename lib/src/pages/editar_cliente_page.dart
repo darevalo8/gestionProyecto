@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:integrador/src/Widgets/alertas.dart';
 import 'package:integrador/src/models/cliente_model.dart';
-import 'package:integrador/src/providers/users_provider.dart';
+import 'package:integrador/src/providers/cliente_provider.dart';
 
 class EditarCliente extends StatefulWidget {
   @override
@@ -129,14 +128,13 @@ class _EditarClienteState extends State<EditarCliente> {
   }
 
   Widget _crearBoton(Cliente cliente) {
-    Alerta alerta = new Alerta();
     return Container(
       height: 56.0,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
-        color: Colors.blue
+        color: Colors.blue,
       ),
       child: InkWell(
         child: Center(
@@ -152,7 +150,7 @@ class _EditarClienteState extends State<EditarCliente> {
 
   void mostrarAlerta(BuildContext context, String mensaje, Cliente cliente){
   
-    UserProvider provider = UserProvider();
+    ClienteProvider clienteProvider = ClienteProvider();
     showDialog(
       context: context,
       builder: (context) {
@@ -163,7 +161,7 @@ class _EditarClienteState extends State<EditarCliente> {
             FlatButton(
               child: Text('Estoy seguro'),
               onPressed: (){
-                provider.updateClient(cliente);
+                clienteProvider.updateClient(cliente);
                 Navigator.of(context).pop();
               },
             ),

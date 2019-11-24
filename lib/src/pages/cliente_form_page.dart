@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integrador/src/Widgets/alertas.dart';
-import 'package:integrador/src/providers/users_provider.dart';
+import 'package:integrador/src/providers/cliente_provider.dart';
 
 class ClienteFormPage extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
   
   Alerta alerta = new Alerta();
   String empresa, nit, telefono, direccion, username, password, email;
-  var userProvider = UserProvider();
+  ClienteProvider clienteProvider = ClienteProvider();
   var data;
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
         }
         else {
 
-          userProvider.addClient(data, clientData);
+          clienteProvider.addClient(data, clientData);
         }
       },
       child: Container(

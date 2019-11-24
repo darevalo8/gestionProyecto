@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integrador/src/models/cliente_model.dart';
-import 'package:integrador/src/providers/users_provider.dart';
+import 'package:integrador/src/providers/cliente_provider.dart';
 
 class ClientePage extends StatefulWidget {
   @override
@@ -8,7 +8,7 @@ class ClientePage extends StatefulWidget {
 }
 
 class _ClientePageState extends State<ClientePage> {
-  final userProvider = UserProvider();
+  final clienteProvider = ClienteProvider();
   String _opcionSeleccionada = 'Ver cliente';
 
   @override
@@ -29,7 +29,7 @@ class _ClientePageState extends State<ClientePage> {
 
   Widget _getClients(var data) {
     return FutureBuilder(
-      future: userProvider.getClientes(data),
+      future: clienteProvider.getClientes(data),
       // initialData: [],
       builder: (context, AsyncSnapshot<List<Cliente>> snapshot) {
         if (!snapshot.hasData) {
@@ -47,6 +47,9 @@ class _ClientePageState extends State<ClientePage> {
         return ListView.builder(
             itemCount: clientes.length,
             itemBuilder: (context, i) => Dismissible(
+                onDismissed: (value){
+                  clienteProvider.deleteClient(clientes[i]);
+                } ,
                 key: UniqueKey(),
                 background: Container(
                   color: Colors.red,
