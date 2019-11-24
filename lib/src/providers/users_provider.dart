@@ -23,9 +23,11 @@ class UserProvider {
   Future<List<Cliente>> getClientes(Map<String, dynamic> data) async {
     // bool logueado = verificarToken(data); 
     //if (log){} retornar el 401 del no log 
-    final Helper helper = new Helper();
+    // final Helper helper = new Helper();
     final url = Uri.http(_url, '/api/clientes');
     String token = data['token'];
+
+
     final response = await http.get(url, headers: {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
@@ -49,13 +51,17 @@ class UserProvider {
     print(response.statusCode);
 
   }
+
   Future<List<Inversionista>> getInversionistas(Map<String, dynamic> data) async {
+
     final url = Uri.http(_url, '/api/inversionistas');
     String token = data['token'];
+
     final response = await http.get(url, headers: {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
+
     final decodeData = jsonDecode(response.body);
     final inversionistas = Inversionistas.fromJsonList(decodeData);
     print(response.statusCode);

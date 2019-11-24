@@ -13,6 +13,11 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
   var userProvider = UserProvider();
   var data;
 
+  String _opcionSeleccionada = "Inversionista";
+  int _opcion =0;
+
+  List <String> _listaTipo = ['Inversionista', 'Banco',];
+
   @override
   Widget build(BuildContext context) {
 
@@ -42,6 +47,7 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
               SizedBox(height: 5.0),
               _passwordField(),
               SizedBox(height: 5.0),
+              _crearDropdown(),
               _bottom()
             ],
           ),
@@ -116,18 +122,10 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
           'direccion': this.direccion,
           'username': this.username,
           'password': this.password,
-          'email': this.email
+          'email': this.email,
+          'tipo_inver': this._opcionSeleccionada
         };
-
-        if(this.empresa.isEmpty || this.nit.isEmpty || this.telefono.isEmpty || this.direccion.isEmpty || this.username.isEmpty || this.password.isEmpty || this.email.isEmpty ){
-
-          mostrarAlerta(context, "Debes llenar todos los campos");
-          
-        }
-        else {
-
           userProvider.addInversionista(data, clientData);
-        }
       },
       child: Container(
         height: 56.0,
@@ -165,5 +163,54 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
   );
 
 }
+
+ Widget _crearDropdown(){
+
+    return Row(
+      children: <Widget>[
+
+        Icon(Icons.select_all),
+        Text('Seleccione el ripo de inversionista',),
+        SizedBox(width: 30.0,),
+        Expanded(
+          child: DropdownButton(
+            value: _opcionSeleccionada,
+            items: getOpcionesDropdown(),
+            onChanged: (value){
+            setState(() {
+
+              if (_opcionSeleccionada == 'Inversionista'){
+                _opcion =1;
+              }
+              else if (_opcionSeleccionada == 'Banco'){
+                _opcion =2;
+              }
+              _opcion = value;
+            
+            });
+          },
+      ),
+        )
+      ],
+    );
+
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown () {
+
+    List<DropdownMenuItem<String>> lista = new List();
+
+    _listaTipo.forEach((tipo){
+
+      lista.add(DropdownMenuItem(
+        child: Text(tipo),
+        value: tipo,
+      ));
+    });
+    return lista;
+
+  }
+
+
 
 }

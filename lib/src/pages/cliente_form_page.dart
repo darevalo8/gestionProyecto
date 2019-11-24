@@ -13,6 +13,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
   String empresa, nit, telefono, direccion, username, password, email;
   var userProvider = UserProvider();
   var data;
+  
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
@@ -117,15 +118,8 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
           'email': this.email
         };
 
-        if(this.empresa.isEmpty || this.nit.isEmpty || this.telefono.isEmpty || this.direccion.isEmpty || this.username.isEmpty || this.password.isEmpty || this.email.isEmpty ){
-
-          alerta.mostrarAlerta(context, "Debes llenar todos los campos");
-          
-        }
-        else {
-
           userProvider.addClient(data, clientData);
-        }
+        
       },
       child: Container(
         height: 56.0,
