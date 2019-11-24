@@ -28,17 +28,23 @@ class HomePage extends StatelessWidget{
             title: Text('Gestion de clientes'),
             onTap: (){
               Navigator.pushNamed(context, 'cliente', arguments: data);
-              
             },
           ),
-
+          Divider(thickness: 1.0, color: Colors.black,),
           ListTile(
             title: Text('Gestion de Inversionistas'),
             onTap: (){
-              print('object2');
               Navigator.popAndPushNamed(context, 'inversionista', arguments: data);
             },
           ),
+          Divider(thickness: 1.0, color: Colors.black,),
+          ListTile(
+            title: Text('Proyectos'),
+            onTap: (){
+              Navigator.popAndPushNamed(context, 'proyecto');
+            },
+          ),
+          Divider(thickness: 1.0, color: Colors.black,),
         ],
       ),
     );
