@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:integrador/src/pages/cliente_form_page.dart';
 import 'package:integrador/src/pages/cliente_page.dart';
 import 'package:integrador/src/pages/editar_cliente_page.dart';
+import 'package:integrador/src/pages/fase_page.dart';
 import 'package:integrador/src/pages/home_page.dart';
 import 'package:integrador/src/pages/inversionista_form_page.dart';
 import 'package:integrador/src/pages/inversionista_page.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
         'inversionista'     : (BuildContext context) => InversionistaPage(),
         'add-inversionista' : (BuildContext context) => InversionistaFormPage(),
         'proyecto'          : (BuildContext context) => ProyectoPage(),
-        'verProyecto'       : (BuildContext context) => VerProyecto()
+        'verProyecto'       : (BuildContext context) => VerProyecto(),
+        'fase'              : (BuildContext context) => FasePage()
       },
     );
   }
