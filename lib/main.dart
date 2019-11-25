@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         'inversionista'     : (BuildContext context) => InversionistaPage(),
         'add-inversionista' : (BuildContext context) => InversionistaFormPage(),
         'proyecto'          : (BuildContext context) => ProyectoPage(),
-        'verProyecto'       : (BuildContext context) => Ver
+        'verProyecto'       : (BuildContext context) => VerProyecto()
       },
     );
   }
