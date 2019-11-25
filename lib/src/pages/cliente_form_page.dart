@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:integrador/src/providers/users_provider.dart';
+import 'package:integrador/src/providers/cliente_provider.dart';
 
 class ClienteFormPage extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
   String empresa, nit, telefono, direccion, username, password, email;
 
   final formKey = GlobalKey<FormState>();
-  var userProvider = UserProvider();
+  var userProvider = ClienteProvider();
   var data;
   @override
   Widget build(BuildContext context) {
