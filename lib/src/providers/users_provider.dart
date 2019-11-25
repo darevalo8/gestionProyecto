@@ -52,6 +52,36 @@ class UserProvider {
     
   }
 
+  Future updateInversionista(Inversionista inversionista)async{
+
+    var authData = {
+        'nombre'    : inversionista.nombreInversionista,
+        'nit'       : inversionista.nitInversionista, 
+        'telefono'  : inversionista.telInversionista,
+        'direccion' : inversionista.direcInversionista,
+        //'tipo_inver': inversionista.tipoInver
+    };
+
+    String token = _prefs.token.toString();
+    String id = inversionista.id.toString();
+
+    final url = Uri.http(_url, '/api/inversionistas/$id/');
+    final response = await http.put(url, body: authData,
+    headers: {HttpHeaders.authorizationHeader : 'Bearer $token'});
+
+  }
+
+  
+  Future deleteInversionista(Inversionista inversionista) async {
+
+    String id = inversionista.id.toString();
+
+    final url = Uri.http(_url, '/api/inversionistas/$id/');
+    final response = await http.delete(url,  headers: {HttpHeaders.contentTypeHeader: 'application/json' ,
+    HttpHeaders.authorizationHeader : 'Bearer '+_prefs.token.toString()});
+
+    print(response.statusCode);
+  }
 
 
 }
