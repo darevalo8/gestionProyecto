@@ -5,6 +5,7 @@ import 'package:integrador/src/pages/editar_cliente_page.dart';
 import 'package:integrador/src/pages/home_page.dart';
 import 'package:integrador/src/pages/inversionista_form_page.dart';
 import 'package:integrador/src/pages/inversionista_page.dart';
+
 import 'package:integrador/src/pages/login_page.dart';
 import 'package:integrador/src/pages/proyecto_page.dart';
 import 'package:integrador/src/pages/ver_cliente_page.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Gestion Proyecto',
       initialRoute: '/',
       routes: {
+
         '/'                 : (BuildContext context) => LoginPage(),
         'home'              : (BuildContext context) => HomePage(),
         'cliente'           : (BuildContext context) => ClientePage(),
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         'inversionista'     : (BuildContext context) => InversionistaPage(),
         'add-inversionista' : (BuildContext context) => InversionistaFormPage(),
         'proyecto'          : (BuildContext context) => ProyectoPage(),
-        'verProyecto'       : (BuildContext context) => VerProyecto()
+        'verProyecto'       : (BuildContext context) => Ver
       },
     );
   }

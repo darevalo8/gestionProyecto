@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:integrador/src/helper/helpers.dart';
 import 'package:integrador/src/models/inversionista_model.dart';
 import 'package:integrador/src/preferencias_usuario/preferencias_usuario.dart';
+
 
 class UserProvider {
   
@@ -30,21 +30,23 @@ class UserProvider {
     
     final url = Uri.http(_url, '/api/inversionistas');
     String token = data['token'];
+
     final response = await http.get(url, headers: {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
+
     final decodeData = jsonDecode(response.body);
+
     final inversionistas = Inversionistas.fromJsonList(decodeData);
     print(response.statusCode);
     return inversionistas.items;
   }
 
-  Future addInversionista(Map<String, dynamic> userInfo, Map<String, dynamic> clientData)async{
-
+  Future addInversionista(Map<String, dynamic> userInfo, Map<String, dynamic> inverData)async{
     final url = Uri.http(_url, '/api/inversionistas');
     String token = userInfo['token'];
-    final response = await http.post(url, body: clientData,headers: {
+    final response = await http.post(url, body: inverData,headers: {
       HttpHeaders.authorizationHeader: 'Bearer $token',
     });
     
