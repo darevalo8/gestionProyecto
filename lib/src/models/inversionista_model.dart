@@ -1,5 +1,7 @@
 class Inversionistas {
   List<Inversionista> items = new List();
+
+  
   Inversionistas.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
     for (var item in jsonList) {
@@ -31,6 +33,6 @@ class Inversionista {
     this.nitInversionista = json['nit'];
     this.telInversionista = json['telefono'];
     this.direcInversionista = json['direccion'];
-    this.tipoInver= json["tipo_inver"];
+    this.tipoInver= json['tipo_inver'];
   }
 }

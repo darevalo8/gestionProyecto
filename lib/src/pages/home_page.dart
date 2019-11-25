@@ -38,13 +38,7 @@ class HomePage extends StatelessWidget{
               Navigator.popAndPushNamed(context, 'inversionista', arguments: data);
             },
           ),
-          ListTile(
-            title: Text('Prueba de Inversionistas'),
-            onTap: (){
-             
-              Navigator.popAndPushNamed(context, 'inversionista2', arguments: data);
-            },
-          ),
+          
         ],
       ),
     );

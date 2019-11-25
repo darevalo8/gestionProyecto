@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:integrador/src/Widgets/alertas.dart';
 import 'package:integrador/src/providers/users_provider.dart';
 
 class ClienteFormPage extends StatefulWidget {
@@ -8,12 +7,9 @@ class ClienteFormPage extends StatefulWidget {
 }
 
 class _ClienteFormPageState extends State<ClienteFormPage> {
-  
-  Alerta alerta = new Alerta();
   String empresa, nit, telefono, direccion, username, password, email;
   var userProvider = UserProvider();
   var data;
-  
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
@@ -117,9 +113,8 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
           'password': this.password,
           'email': this.email
         };
-
-          userProvider.addClient(data, clientData);
-        
+        userProvider.addClient(data, clientData);
+        Navigator.pop(context);
       },
       child: Container(
         height: 56.0,
@@ -137,5 +132,4 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
       ),
     );
   }
-
 }

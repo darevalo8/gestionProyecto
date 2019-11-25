@@ -2,29 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:integrador/src/providers/users_provider.dart';
 
 class InversionistaFormPage extends StatefulWidget {
-  
-
+  @override
   _InversionistaFormPageState createState() => _InversionistaFormPageState();
 }
 
 class _InversionistaFormPageState extends State<InversionistaFormPage> {
-
   String empresa, nit, telefono, direccion, username, password, email;
-  var userProvider = UserProvider();
-  var data;
-
-  String _opcionSeleccionada = "Inversionista";
-  int _opcion =0;
+  String tipoInv;
 
   List <String> _listaTipo = ['Inversionista', 'Banco',];
+ String _opcionSeleccionada = 'Inversionista';
 
+ final scafoldKey = GlobalKey<ScaffoldState>();
+
+  var userProvider = UserProvider();
+  var data;
   @override
   Widget build(BuildContext context) {
-
     data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Inversionista'),
+        title: Text('Añadir inversionista'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -47,14 +45,14 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
               SizedBox(height: 5.0),
               _passwordField(),
               SizedBox(height: 5.0),
-              _crearDropdown(),
+              _tipoField(),
+              SizedBox(height: 5.0),
               _bottom()
             ],
           ),
         ),
       ),
     );
-
   }
 
   Widget _textField(String field) {
@@ -111,6 +109,22 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
       },
     );
   }
+  Widget _tipoField() {
+    return TextField(
+
+      decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: "Escriba el tipo de inversionista",
+          labelText: "tipo inver",
+          prefixIcon: Icon(Icons.battery_unknown),
+          ),
+      onChanged: (value) {
+        setState(() {
+          this.tipoInv = (value);
+        });
+      },
+    );
+  }
 
   Widget _bottom() {
     return InkWell(
@@ -123,9 +137,11 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
           'username': this.username,
           'password': this.password,
           'email': this.email,
-          'tipo_inver': this._opcionSeleccionada
+          'tipo_inver': this.tipoInv
         };
-          userProvider.addInversionista(data, clientData);
+        userProvider.addInversionista(data, clientData);
+       
+        Navigator.pop(context);
       },
       child: Container(
         height: 56.0,
@@ -144,27 +160,7 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
     );
   }
 
-  void mostrarAlerta(BuildContext context, String mensaje){
-
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('informacion incorrecta'),
-        content: Text(mensaje),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: ()=> Navigator.of(context).pop(),
-          )
-        ],
-      );
-    }
-  );
-
-}
-
- Widget _crearDropdown(){
+  Widget _crearDropdown(){
 
     return Row(
       children: <Widget>[
@@ -176,24 +172,26 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
           child: DropdownButton(
             value: _opcionSeleccionada,
             items: getOpcionesDropdown(),
-            onChanged: (value){
+            onChanged: (opt){
             setState(() {
 
+              _opcionSeleccionada= opt;
+
               if (_opcionSeleccionada == 'Inversionista'){
-                _opcion =1;
+                opt ='1';
+                this.tipoInv = opt;
               }
-              else if (_opcionSeleccionada == 'Banco'){
-                _opcion =2;
+              if (_opcionSeleccionada == 'Banco'){
+                opt ='2';
+                this.tipoInv = opt;
               }
-              _opcion = value;
-            
+              
             });
           },
       ),
         )
       ],
     );
-
   }
 
   List<DropdownMenuItem<String>> getOpcionesDropdown () {
@@ -210,7 +208,6 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
     return lista;
 
   }
-
 
 
 }
