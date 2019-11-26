@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:integrador/src/models/cliente_model.dart';
 import 'package:integrador/src/models/inversionista_model.dart';
-import 'package:integrador/src/providers/cliente_provider.dart';
 import 'package:integrador/src/providers/users_provider.dart';
 
 class InversionistaPage extends StatefulWidget {
@@ -34,17 +32,34 @@ class _InversionistaPageState extends State<InversionistaPage> {
       future: inverProvider.getInversionistas(data),
       // initialData: [],
       builder: (context, AsyncSnapshot<List<Inversionista>> snapshot) {
-        if (!snapshot.hasData) {
+
+
+        if(snapshot.error== 401){
+          return Center(
+            child: Container(
+              child: InkWell(
+                child: Center(
+                  child: Text('PRECAUCION', style: TextStyle(color: Colors.red, fontSize: 40.0),),
+                ),
+                onTap:()=> alertaToken(context),
+              )
+            ),
+          );
+
+        }
+
+        if (!snapshot.hasData ) {
           return Center(child: CircularProgressIndicator());
         }
 
         final inversionistas = snapshot.data;
 
-        if (inversionistas.length == 0) {
+        if (inversionistas.length == 0) { //inversionistas.length == 0
           return Center(
             child: Text('No hay inversionistas'),
           );
         }
+
 
         return ListView.builder(
             itemCount: inversionistas.length,
@@ -94,4 +109,34 @@ class _InversionistaPageState extends State<InversionistaPage> {
       },
     );
   }
+
+  void alertaToken(BuildContext context){
+     
+     showDialog(
+       context: context,
+       barrierDismissible: true,
+       builder: (context){
+         return AlertDialog(
+           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+           title: Text('Titulo'),
+           content: Column(
+             mainAxisSize: MainAxisSize.min,
+             children: <Widget>[
+               Text('Su cesion ha expirado'),
+               //FlutterLogo(size: 100.0,)
+             ],
+           ),
+           actions: <Widget>[
+             FlatButton(
+               child: Text('Ok'),
+               onPressed: ()=> Navigator.pushNamed(context, '/'),
+             ),
+  
+           ],
+          
+         );
+       }
+     );
+  }
+  
 }

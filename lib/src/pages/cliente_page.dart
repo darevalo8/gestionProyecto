@@ -32,6 +32,23 @@ class _ClientePageState extends State<ClientePage> {
       future: clienteProvider.getClientes(data),
       // initialData: [],
       builder: (context, AsyncSnapshot<List<Cliente>> snapshot) {
+
+
+
+        if(snapshot.error== 401){
+          return Center(
+            child: Container(
+              child: InkWell(
+                child: Center(
+                  child: Text('PRECAUCION', style: TextStyle(color: Colors.red, fontSize: 40.0),),
+                ),
+                onTap:()=> alertaToken(context),
+              )
+            ),
+          );
+
+        }
+
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
@@ -91,5 +108,33 @@ class _ClientePageState extends State<ClientePage> {
                 )));
       },
     );
+  }
+  void alertaToken(BuildContext context){
+     
+     showDialog(
+       context: context,
+       barrierDismissible: true,
+       builder: (context){
+         return AlertDialog(
+           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+           title: Text('Titulo'),
+           content: Column(
+             mainAxisSize: MainAxisSize.min,
+             children: <Widget>[
+               Text('Su cesion ha expirado'),
+               //FlutterLogo(size: 100.0,)
+             ],
+           ),
+           actions: <Widget>[
+             FlatButton(
+               child: Text('Ok'),
+               onPressed: ()=> Navigator.pushNamed(context, '/'),
+             ),
+  
+           ],
+          
+         );
+       }
+     );
   }
 }

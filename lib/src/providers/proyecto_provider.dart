@@ -15,11 +15,20 @@ class ProyectoProvider {
     final url = Uri.http(_url, '/api/proyectos');
     final response = await http.get(url, 
     headers:{ HttpHeaders.authorizationHeader: 'Bearer '+_prefs.token.toString()});
-    final decodeData = jsonDecode(response.body);
+
+    
+    final res = response.statusCode; //200, 401
+
+    if (res == 200){
+
+    final decodeData = jsonDecode(response.body); 
     final proyecto   = Proyectos.jsonFromList(decodeData);
 
     return proyecto.items;
-
+    }
+    if (res == 401){
+      return Future.error(res, StackTrace.fromString('Error') );
+    }
   }
 
 }

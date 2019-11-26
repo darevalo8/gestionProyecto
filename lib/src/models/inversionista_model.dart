@@ -38,4 +38,6 @@ class Inversionista {
     this.direcInversionista  = json['direccion'];
     this.tipoInver           = json['tipo_inver'];
   }
+  
+
 }
