@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:integrador/src/helper/helpers.dart';
 import 'package:integrador/src/models/cliente_model.dart';
+import 'package:integrador/src/models/proyecto_cliente_model.dart';
+import 'package:integrador/src/models/proyecto_model.dart';
 import 'package:integrador/src/preferencias_usuario/preferencias_usuario.dart';
 
 class ClienteProvider {
@@ -77,6 +79,20 @@ class ClienteProvider {
     HttpHeaders.authorizationHeader : 'Bearer '+_prefs.token.toString()});
 
     print(response.statusCode);
+  }
+
+  Future<List<ProyectoCliente>> getProyectos() async {
+
+    final url = Uri.http(_url, '/api/proyectos/clientes');
+    final response = await http.get(url, headers: {
+      HttpHeaders.authorizationHeader: 'Bearer '+_prefs.token.toString()
+    });
+    final decodeData = jsonDecode(response.body);
+    print(decodeData);
+    final proyectos   = ProyectosCliente.jsonFromList(decodeData['clientess']);
+
+    return proyectos.items;
+
   }
 
 }

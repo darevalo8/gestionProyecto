@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget{
           ListTile(
             title: Text('Proyectos'),
             onTap: (){
-              Navigator.popAndPushNamed(context, 'proyecto');
+              Navigator.popAndPushNamed(context, 'proyecto', arguments: data);
             },
           ),
           Divider(thickness: 1.0, color: Colors.black,),
