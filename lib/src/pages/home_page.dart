@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget{
           children: <Widget>[
             _crearImagen(),
             _crearTitulos(),
-            SizedBox(height: 280,),
+            SizedBox(height: 360,),
             _creditos()
             
           ],
@@ -115,6 +115,7 @@ class HomePage extends StatelessWidget{
   Widget _creditos(){
 
     return Container(
+    
       width: 500,
       height: 100,
       color: Colors.black,

@@ -37,7 +37,7 @@ class _EditarInversionistaState extends State<EditarInversionista> {
   Widget _crearCard(Inversionista inversionista){
    
     return Container(
-        height: 170.0,
+        height: 200.0,
         margin: EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
         decoration: BoxDecoration(
           color: Colors.blue,
@@ -119,7 +119,7 @@ class _EditarInversionistaState extends State<EditarInversionista> {
           _textField("nit", inversionista),
           _textField("lugar de ubicacion", inversionista),
           _textField("telefono", inversionista),
-           _crearDropdown(inversionista),
+           //_crearDropdown(inversionista),
         ],
       ),
     );
@@ -212,10 +212,9 @@ class _EditarInversionistaState extends State<EditarInversionista> {
     return Row(
       children: <Widget>[
 
-        Icon(Icons.select_all),
         Text('Seleccione el ripo de inversionista',),
         SizedBox(width: 30.0,),
-        Expanded(
+        Container(
           child: DropdownButton(
             value: _opcionSeleccionada,
             items: getOpcionesDropdown(),

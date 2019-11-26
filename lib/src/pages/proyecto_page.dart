@@ -74,7 +74,7 @@ class _ProyectoState extends State<ProyectoPage> {
                 subtitle: Text(estado),
                 leading: Icon(Icons.navigate_next),
                 onTap: () {
-                  Navigator.popAndPushNamed(context, 'verProyecto', arguments: proyectos[i]);
+                  Navigator.popAndPushNamed(context, 'verProyectoCliente', arguments: proyectos[i]);
                 },
               ),
             );

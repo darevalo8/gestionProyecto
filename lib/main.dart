@@ -12,6 +12,7 @@ import 'package:integrador/src/pages/login_page.dart';
 import 'package:integrador/src/pages/proyecto_page.dart';
 import 'package:integrador/src/pages/ver_cliente_page.dart';
 import 'package:integrador/src/pages/ver_inversionista_page.dart';
+import 'package:integrador/src/pages/ver_proyecto_cliente.dart';
 import 'package:integrador/src/pages/ver_proyecto_page.dart';
 import 'package:integrador/src/preferencias_usuario/preferencias_usuario.dart';
 
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         'add-inversionista' : (BuildContext context) => InversionistaFormPage(),
         'proyecto'          : (BuildContext context) => ProyectoPage(),
         'verProyecto'       : (BuildContext context) => VerProyecto(),
+        'verProyectoCliente': (BuildContext context) => VerProyectoCliente(),
         'fase'              : (BuildContext context) => FasePage()
       },
     );
