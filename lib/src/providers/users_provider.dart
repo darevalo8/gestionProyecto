@@ -21,6 +21,16 @@ class UserProvider {
     return decodeData;
   }
 
+  Future getTypeUser() async {
+
+    final url = Uri.http(_url, '/api/me');
+    final response = await http.get(url, 
+    headers: {HttpHeaders.authorizationHeader: 'Bearer '+_prefs.token});
+    final decodeData = json.decode(response.body);
+
+    return decodeData;
+  }
+
   //----------------------------------------------------------------------------
 
   
