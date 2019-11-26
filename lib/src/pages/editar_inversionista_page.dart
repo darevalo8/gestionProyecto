@@ -9,6 +9,9 @@ class EditarInversionista extends StatefulWidget {
 }
 
 class _EditarInversionistaState extends State<EditarInversionista> {
+
+  List <String> _listaTipo = ['Seleccione','Inversionista', 'Banco',];
+  String _opcionSeleccionada = 'Seleccione';
   @override
   Widget build(BuildContext context) {
   final data = ModalRoute.of(context).settings.arguments;
@@ -90,6 +93,10 @@ class _EditarInversionistaState extends State<EditarInversionista> {
                   SizedBox(height: 10.0,),
                   Text("Dirección: "+inversionista.direcInversionista,
                   style: TextStyle(fontSize: 16.0)),
+
+                  SizedBox(height: 10.0,),
+                  Text("Tipo inversionista: "+inversionista.tipoInver.toString(),
+                  style: TextStyle(fontSize: 16.0)),
                 ],
               ),
             ),
@@ -111,7 +118,8 @@ class _EditarInversionistaState extends State<EditarInversionista> {
           _textField("nombre", inversionista),
           _textField("nit", inversionista),
           _textField("lugar de ubicacion", inversionista),
-          _textField("telefono", inversionista)
+          _textField("telefono", inversionista),
+           _crearDropdown(inversionista),
         ],
       ),
     );
@@ -198,6 +206,55 @@ class _EditarInversionistaState extends State<EditarInversionista> {
     );
 
 }
+
+  Widget _crearDropdown(Inversionista inversionista){
+
+    return Row(
+      children: <Widget>[
+
+        Icon(Icons.select_all),
+        Text('Seleccione el ripo de inversionista',),
+        SizedBox(width: 30.0,),
+        Expanded(
+          child: DropdownButton(
+            value: _opcionSeleccionada,
+            items: getOpcionesDropdown(),
+            onChanged: (opt){
+            setState(() {
+
+              _opcionSeleccionada= opt;
+
+              if (_opcionSeleccionada == 'Inversionista'){
+                opt ='1';
+                inversionista.tipoInver = opt;
+              }
+              if (_opcionSeleccionada == 'Banco'){
+                opt ='2';
+                inversionista.tipoInver = opt;
+              }
+              
+            });
+          },
+      ),
+        )
+      ],
+    );
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown () {
+
+    List<DropdownMenuItem<String>> lista = new List();
+
+    _listaTipo.forEach((tipo){
+
+      lista.add(DropdownMenuItem(
+        child: Text(tipo),
+        value: tipo,
+      ));
+    });
+    return lista;
+
+  }
 
 
 
