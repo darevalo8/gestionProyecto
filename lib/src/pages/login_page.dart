@@ -17,7 +17,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
+        body: Stack(
+          children: <Widget>[_crearFondo(context),_loginForm()],
+        )
+    );
+  }
+
+  Widget _loginForm(){
+    return SingleChildScrollView(
 
           child: Container(
             padding:
@@ -41,11 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 40.0,
                   ),
-                  _userNameField(),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  _passwordField(),
+                  buildForm(),
                   SizedBox(
                     height: 20.0,
                   ),
@@ -54,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-    ));
+    );
   }
 
   Widget _userNameField() {
@@ -167,5 +170,89 @@ class _LoginPageState extends State<LoginPage> {
         // }
    
   }
+
+  Widget buildForm() {
+    return new Container(
+      width: double.infinity,
+      height: 250.0,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black12,
+                offset: Offset(0.0, 15.0),
+                blurRadius: 15.0),
+            BoxShadow(
+                color: Colors.black12,
+                offset: Offset(0.0, -10.0),
+                blurRadius: 10.0),
+          ]),
+      child: Padding(
+        padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height:30.0,
+            ),
+            _userNameField(),
+            SizedBox(
+              height: 30.0,
+            ),
+            _passwordField(),
+            SizedBox(
+              height: 35.0,
+            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: <Widget>[
+            //     Text(
+            //       "Forgot Password?",
+            //       style: TextStyle(
+            //           color: Colors.blue,
+            //           fontFamily: "Poppins-Medium",
+            //           fontSize: ScreenUtil.getInstance().setSp(28)
+            //           ),
+            //     )
+            //   ],
+            // )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _crearFondo(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    final fondoModaro = Container(
+      height: size.height * 0.4,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: <Color>[Color(0xFF17ead9), Color(0xFF6078ea)])),
+    );
+
+    final circulo = Container(
+      width: 100.0,
+      height: 100.0,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100.0),
+          color: Color.fromRGBO(255, 255, 255, 0.05)),
+    );
+
+    return Stack(
+      children: <Widget>[
+        fondoModaro,
+        Positioned(top: 90.0, left: 30.0, child: circulo),
+        Positioned(top: -40.0, right: -30.0, child: circulo),
+        Positioned(bottom: -50.0, right: -10.0, child: circulo),
+        Positioned(bottom: 120.0, right: 20.0, child: circulo),
+        Positioned(bottom: -50.0, left: -20.0, child: circulo),
+      ],
+    );
+  }
+
 }
 
