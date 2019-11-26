@@ -11,47 +11,54 @@ class _LoginPageState extends State<LoginPage> {
   Alerta alerta = new Alerta();
   String username, password;
   var userProvider = UserProvider();
+  bool _guardando = false;
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Container(
-        padding:
-            EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'GESTION PROYECTO',
-              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+
+          child: Container(
+            padding:
+                EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 20.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'GESTION PROYECTO',
+                    style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Text(
+                    'LOGIN',
+                    style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  _userNameField(),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  _passwordField(),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  _botton()
+                ],
+              ),
             ),
-            SizedBox(
-              height: 40.0,
-            ),
-            Text(
-              'LOGIN',
-              style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 40.0,
-            ),
-            _userNameField(),
-            SizedBox(
-              height: 20.0,
-            ),
-            _passwordField(),
-            SizedBox(
-              height: 20.0,
-            ),
-            _bottom()
-          ],
-        ),
-      ),
+          ),
     ));
   }
 
   Widget _userNameField() {
-    return TextField(
+    return TextFormField(
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
@@ -64,11 +71,18 @@ class _LoginPageState extends State<LoginPage> {
           this.username = value;
         });
       },
+      validator: (value){
+        if(value.length <=0){
+          return 'Rellene los campos';
+        }else{
+          return null;
+        }
+      }, 
     );
   }
 
   Widget _passwordField() {
-    return TextField(
+    return TextFormField(
       obscureText: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -84,37 +98,33 @@ class _LoginPageState extends State<LoginPage> {
           this.password = value;
         });
       },
+      validator: (value){
+        if(value.length <=0){
+          return 'Rellene los campos';
+        }else{
+          return null;
+        }
+      }, 
     );
   }
 
-  Widget _bottom() {
+  Widget _botton() {
 
-    return InkWell(
-      onTap: () {
-
-      if(this.username.isNotEmpty && this.password.isNotEmpty){
-        userProvider.login(this.username, this.password).then((data) {
-          if (data['access'] != null) {
-
-             Navigator.pushNamed(context, 'home', arguments: {
-              'token': data['access'],
-              'refresh': data['refresh']
-            });
-            } if(data['access'] == null) {
-             alerta.mostrarAlerta(context, data['detail']);
-            }
-          });
-        }else{
-          alerta.mostrarAlerta(context, "Debes llenar todos los campos");
-        }
-      },
+    return RaisedButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(23.0)
+      ),
+      color: Colors.white,
+      onPressed: (_guardando) ? null :_submit,
       child: Container(
         height: 56.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(23.0),
             gradient: LinearGradient(
-                colors: <Color>[Color(0xFF121940), Color(0xFF6E48AA)])),
+              colors: <Color>[Color(0xFF121940), Color(0xFF6E48AA)]
+              )    
+            ),
         child: Center(
           child: Text(
             'Iniciar Sesión',
@@ -123,6 +133,36 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+
+
+  void _submit(){
+
+    if(!formKey.currentState.validate() ) return null;
+
+    setState(() {_guardando= true; });
+
+    if(this.username.isNotEmpty && this.password.isNotEmpty){
+        userProvider.login(this.username, this.password).then((data) {
+          if (data['access'] != null) {
+
+             setState(() {_guardando= false ; });
+
+             Navigator.pushReplacementNamed(context, 'home', arguments: {
+              'token': data['access'],
+              'refresh': data['refresh']
+            });
+            } if(data['access'] == null) {
+             alerta.mostrarAlerta(context, data['detail']);
+            }
+          });
+        }
+        
+        // else{
+        //   alerta.mostrarAlerta(context, "Debes llenar todos los campos");
+        // }
+   
   }
 }
 

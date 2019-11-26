@@ -96,7 +96,7 @@ class _ProyectoState extends State<ProyectoPage> {
            actions: <Widget>[
              FlatButton(
                child: Text('Ok'),
-               onPressed: ()=> Navigator.pushNamed(context, '/'),
+               onPressed: ()=> Navigator.pushReplacementNamed(context, '/'),
              ),
   
            ],

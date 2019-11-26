@@ -129,7 +129,7 @@ class _InversionistaPageState extends State<InversionistaPage> {
            actions: <Widget>[
              FlatButton(
                child: Text('Ok'),
-               onPressed: ()=> Navigator.pushNamed(context, '/'),
+               onPressed: ()=> Navigator.pushReplacementNamed(context, '/'),
              ),
   
            ],
