@@ -16,7 +16,7 @@ class Fase{
   String fecha_inicio;
   String fecha_fin;
   String descripcion;
-  String estado;
+  bool estado;
 
   Fase({
     this.nombre_fase,

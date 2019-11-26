@@ -38,4 +38,13 @@ class Inversionista {
     this.direcInversionista  = json['direccion'];
     this.tipoInver           = json['tipo_inver'];
   }
+  
+
+  // Inversionista.formJsonToken(Map<String, dynamic> json){
+
+  //   String detail = json['detail'];
+  //   String code = json['code'];
+  //   List<dynamic> mensaje = json['messages'];
+
+  // }
 }

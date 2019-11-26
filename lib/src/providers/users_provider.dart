@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:integrador/src/models/inversionista_model.dart';
 import 'package:integrador/src/preferencias_usuario/preferencias_usuario.dart';
@@ -36,11 +37,24 @@ class UserProvider {
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
 
-    final decodeData = jsonDecode(response.body);
+    final res = response.statusCode; //200, 401
+
+    if (res == 200){
+
+    final decodeData = jsonDecode(response.body); 
 
     final inversionistas = Inversionistas.fromJsonList(decodeData);
     print(response.statusCode);
     return inversionistas.items;
+    }
+    
+    if (res == 401){
+
+      //final inversionista401 = Inversionista.formJsonToken(decodeData);
+      //final inversionista401 = Inversionista.fromJsonMap(decodeData);
+      return Future.error(res, StackTrace.fromString('Error') );
+
+    }
   }
 
   Future addInversionista(Map<String, dynamic> userInfo, Map<String, dynamic> inverData)async{
@@ -82,6 +96,5 @@ class UserProvider {
 
     print(response.statusCode);
   }
-
 
 }
