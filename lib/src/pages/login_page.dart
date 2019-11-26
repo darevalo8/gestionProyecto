@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(23.0)
       ),
-      color: Colors.white,
+      color: Colors.transparent,
       onPressed: (_guardando) ? null :_submit,
       child: Container(
         height: 56.0,
@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(23.0),
             gradient: LinearGradient(
-              colors: <Color>[Color(0xFF121940), Color(0xFF6E48AA)]
+              colors: <Color>[Color(0xFF17ead9), Color(0xFF6078ea)]
               )    
             ),
         child: Center(
@@ -148,11 +148,14 @@ class _LoginPageState extends State<LoginPage> {
           if (data['access'] != null) {
 
              setState(() {_guardando= false ; });
-
-             Navigator.pushReplacementNamed(context, 'home', arguments: {
-              'token': data['access'],
-              'refresh': data['refresh']
-            });
+             userProvider.getTypeUser().then((value){
+                Navigator.pushReplacementNamed(context, 'home', arguments: {
+                'token': data['access'],
+                'refresh': data['refresh'],
+                'tipo_usuario' : value['tipo_usuario']
+              });
+             });
+             
             } if(data['access'] == null) {
              alerta.mostrarAlerta(context, data['detail']);
             }
