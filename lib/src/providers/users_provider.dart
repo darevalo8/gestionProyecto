@@ -47,13 +47,9 @@ class UserProvider {
     print(response.statusCode);
     return inversionistas.items;
     }
-    
+
     if (res == 401){
-
-      //final inversionista401 = Inversionista.formJsonToken(decodeData);
-      //final inversionista401 = Inversionista.fromJsonMap(decodeData);
       return Future.error(res, StackTrace.fromString('Error') );
-
     }
   }
 

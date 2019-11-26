@@ -39,7 +39,7 @@ class _InversionistaPageState extends State<InversionistaPage> {
             child: Container(
               child: InkWell(
                 child: Center(
-                  child: Text('PRECAUCION'),
+                  child: Text('PRECAUCION', style: TextStyle(color: Colors.red, fontSize: 40.0),),
                 ),
                 onTap:()=> alertaToken(context),
               )
@@ -60,8 +60,6 @@ class _InversionistaPageState extends State<InversionistaPage> {
           );
         }
 
-
-         
 
         return ListView.builder(
             itemCount: inversionistas.length,

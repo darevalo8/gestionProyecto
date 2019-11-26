@@ -22,11 +22,20 @@ class ClienteProvider {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
+
+    final res = response.statusCode; //200, 401
+
+    if (res == 200){
     final decodeData =  jsonDecode(response.body);
     final clientes =  Clientes.fromJsonList(decodeData);
     //helper.verificarToken(token);
     // print(response.statusCode);
     return clientes.items;
+    }
+
+    if (res == 401){
+      return Future.error(res, StackTrace.fromString('Error') );
+    }
     
   }
 
