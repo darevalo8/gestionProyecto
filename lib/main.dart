@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:integrador/src/pages/cliente_form_page.dart';
 import 'package:integrador/src/pages/cliente_page.dart';
 import 'package:integrador/src/pages/editar_cliente_page.dart';
-<<<<<<< HEAD
-import 'package:integrador/src/pages/fase_page.dart';
-=======
 import 'package:integrador/src/pages/editar_inversionista_page.dart';
->>>>>>> origin/gallo
+import 'package:integrador/src/pages/fase_page.dart';
 import 'package:integrador/src/pages/home_page.dart';
 import 'package:integrador/src/pages/inversionista_form_page.dart';
 import 'package:integrador/src/pages/inversionista_page.dart';
