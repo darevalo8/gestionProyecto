@@ -78,7 +78,7 @@ class UserProvider {
         'nit'       : inversionista.nitInversionista, 
         'telefono'  : inversionista.telInversionista,
         'direccion' : inversionista.direcInversionista,
-        //'tipo_inver': inversionista.tipoInver
+        'tipo_inver': inversionista.tipoInver.toString()
     };
 
     String token = _prefs.token.toString();
