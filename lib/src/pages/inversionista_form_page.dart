@@ -35,6 +35,8 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                _titulo('Rellene los campos'),
+                SizedBox(height: 10,),
                 _textField('empresa', Icons.store_mall_directory),
                 SizedBox(height: 5.0),
                 _textField('nit', Icons.assignment_ind),
@@ -290,6 +292,20 @@ class _InversionistaFormPageState extends State<InversionistaFormPage> {
 
   }
 
+  Widget _titulo(String texto){
+
+    return   Container(
+          padding: EdgeInsets.only(top: 30.0),
+          child: Column(
+            children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(5.0),
+              child: Text(texto, style: TextStyle(fontSize: 45.9, fontWeight: FontWeight.bold, color: Colors.deepPurple),),
+               ),
+            ],
+          ),
+        );
+  }
   //Snacbar para mostrar algo
    void mostrarSnackBar(String mensaje){
 

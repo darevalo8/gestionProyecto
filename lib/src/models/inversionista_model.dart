@@ -13,6 +13,7 @@ class Inversionistas {
 }
 
 class Inversionista {
+  int id;
   String nombreInversionista;
   String nitInversionista;
   String telInversionista;
@@ -21,6 +22,7 @@ class Inversionista {
   
 
   Inversionista({
+    this.id,
     this.nombreInversionista,
     this.nitInversionista,
     this.telInversionista,
@@ -29,10 +31,13 @@ class Inversionista {
   });
 
   Inversionista.fromJsonMap(Map<String, dynamic> json) {
+    this.id                  = json['id'];
     this.nombreInversionista = json['nombre'];
-    this.nitInversionista = json['nit'];
-    this.telInversionista = json['telefono'];
-    this.direcInversionista = json['direccion'];
-    this.tipoInver= json['tipo_inver'];
+    this.nitInversionista    = json['nit'];
+    this.telInversionista    = json['telefono'];
+    this.direcInversionista  = json['direccion'];
+    this.tipoInver           = json['tipo_inver'];
   }
+  
+
 }
