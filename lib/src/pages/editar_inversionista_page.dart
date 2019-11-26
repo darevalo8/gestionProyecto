@@ -9,6 +9,9 @@ class EditarInversionista extends StatefulWidget {
 }
 
 class _EditarInversionistaState extends State<EditarInversionista> {
+
+  List <String> _listaTipo = ['Seleccione','Inversionista', 'Banco',];
+  String _opcionSeleccionada = 'Seleccione';
   @override
   Widget build(BuildContext context) {
   final data = ModalRoute.of(context).settings.arguments;
@@ -38,7 +41,16 @@ class _EditarInversionistaState extends State<EditarInversionista> {
         margin: EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
         decoration: BoxDecoration(
           color: Colors.blue,
-          borderRadius: BorderRadius.circular(8.0)
+          borderRadius: BorderRadius.circular(8.0),
+          gradient: LinearGradient(
+            colors: [Color(0xFF17ead9), Color(0xFF6078ea)]
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF6078ea).withOpacity(.3),
+              offset: Offset(0.0, 8.0),
+              blurRadius: 8.0)
+          ]
         ),
         child: Row(
           children: <Widget>[
@@ -64,20 +76,34 @@ class _EditarInversionistaState extends State<EditarInversionista> {
                       ],
                     ),
                     
-                  SizedBox(height: 10.0,),
+                  SizedBox(height: 15.0,),
                   Text("Telefono: "+inversionista.telInversionista,
                   style: TextStyle(fontSize: 16.0)),
                   SizedBox(height: 10.0,),
-                  Text("NIT : "+inversionista.nitInversionista,
-                    style: TextStyle(fontSize: 16.0,wordSpacing: 0.3),
-                    ),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("NIT: "+inversionista.nitInversionista,
+                          style: TextStyle(fontSize: 16.0,wordSpacing: 0.3),
+                          ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 10.0,),
                   Text("Dirección: "+inversionista.direcInversionista,
+                  style: TextStyle(fontSize: 16.0)),
+
+                  SizedBox(height: 10.0,),
+                  Text("Tipo inversionista: "+inversionista.tipoInver.toString(),
                   style: TextStyle(fontSize: 16.0)),
                 ],
               ),
             ),
-            
+            Padding(
+                padding: const EdgeInsets.only(left: 70.0),
+                child: Icon(Icons.people, size: 70.0,),
+            )
           ],
         ),
       );
@@ -92,7 +118,8 @@ class _EditarInversionistaState extends State<EditarInversionista> {
           _textField("nombre", inversionista),
           _textField("nit", inversionista),
           _textField("lugar de ubicacion", inversionista),
-          _textField("telefono", inversionista)
+          _textField("telefono", inversionista),
+           _crearDropdown(inversionista),
         ],
       ),
     );
@@ -121,6 +148,7 @@ class _EditarInversionistaState extends State<EditarInversionista> {
             case 'nombre':
               inversionista.nombreInversionista = value;
               break;
+            
           }
       }
         setState(() {});
@@ -135,14 +163,16 @@ class _EditarInversionistaState extends State<EditarInversionista> {
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
-        color: Colors.blue,
+        gradient: LinearGradient(
+          colors: [Color(0xFF17ead9), Color(0xFF6078ea)]
+        )
       ),
       child: InkWell(
         child: Center(
-          child: Text("EDITAR"),
+          child: Text("EDITAR", style: TextStyle(fontSize: 20.0),),
         ),
         onTap: (){
-          mostrarAlerta(context, "¿Seguro que quieres editar este cliente?", inversionista);
+          mostrarAlerta(context, "¿Seguro que quieres editar este inversionista?", inversionista);
         },
       ),
     );
@@ -151,7 +181,7 @@ class _EditarInversionistaState extends State<EditarInversionista> {
 
   void mostrarAlerta(BuildContext context, String mensaje, Inversionista inversionista){
   
-    UserProvider inversionistaPtovider = UserProvider();
+    UserProvider inverProvider = UserProvider();
     showDialog(
       context: context,
       builder: (context) {
@@ -162,7 +192,7 @@ class _EditarInversionistaState extends State<EditarInversionista> {
             FlatButton(
               child: Text('Estoy seguro'),
               onPressed: (){
-                inversionistaPtovider.updateInversionista(inversionista);
+                inverProvider.updateInversionista(inversionista);
                 Navigator.of(context).pop();
               },
             ),
@@ -176,6 +206,55 @@ class _EditarInversionistaState extends State<EditarInversionista> {
     );
 
 }
+
+  Widget _crearDropdown(Inversionista inversionista){
+
+    return Row(
+      children: <Widget>[
+
+        Icon(Icons.select_all),
+        Text('Seleccione el ripo de inversionista',),
+        SizedBox(width: 30.0,),
+        Expanded(
+          child: DropdownButton(
+            value: _opcionSeleccionada,
+            items: getOpcionesDropdown(),
+            onChanged: (opt){
+            setState(() {
+
+              _opcionSeleccionada= opt;
+
+              if (_opcionSeleccionada == 'Inversionista'){
+                opt ='1';
+                inversionista.tipoInver = opt;
+              }
+              if (_opcionSeleccionada == 'Banco'){
+                opt ='2';
+                inversionista.tipoInver = opt;
+              }
+              
+            });
+          },
+      ),
+        )
+      ],
+    );
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown () {
+
+    List<DropdownMenuItem<String>> lista = new List();
+
+    _listaTipo.forEach((tipo){
+
+      lista.add(DropdownMenuItem(
+        child: Text(tipo),
+        value: tipo,
+      ));
+    });
+    return lista;
+
+  }
 
 
 

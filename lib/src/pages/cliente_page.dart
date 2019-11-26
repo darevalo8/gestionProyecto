@@ -128,7 +128,7 @@ class _ClientePageState extends State<ClientePage> {
            actions: <Widget>[
              FlatButton(
                child: Text('Ok'),
-               onPressed: ()=> Navigator.pushNamed(context, '/'),
+               onPressed: ()=> Navigator.pushReplacementNamed(context, '/'),
              ),
   
            ],
